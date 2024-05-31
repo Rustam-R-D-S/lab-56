@@ -11,15 +11,15 @@ const INGREDIENTS: Ingredient[] = [
     { name: 'Meat', price: 80, image: meatImage },
     { name: 'Cheese', price: 50, image: cheeseImage },
     { name: 'Salad', price: 10, image: saladImage },
-    { name: 'Beacon', price: 60, image: beaconImage },
+    { name: 'Bacon', price: 60, image: beaconImage },
 ];
 
 const App = () => {
     const [ingredients, setIngredients] = useState([
-        { name: 'Meat', count: 0 },
-        { name: 'Cheese', count: 0 },
         { name: 'Salad', count: 0 },
-        { name: 'Beacon', count: 0 },
+        { name: 'Cheese', count: 0 },
+        { name: 'Meat', count: 0 },
+        { name: 'Bacon', count: 0 },
     ]);
     const addIngredient = (name:string) => {
         setIngredients(prevIngredients =>
@@ -40,7 +40,9 @@ const App = () => {
                             src={ingredient.image}/></button>
                     ))}
                 </div>
-                <div className={"burg"}><Burger /></div>
+                <div className="burger-container">
+                    <Burger ingredients={ingredients} allIngredients={ingredients}/>
+                </div>
             </div>
         </>
     );
