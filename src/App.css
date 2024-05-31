@@ -14,12 +14,16 @@
 .ingridients{
   border: 1px solid black;
   width: 50%;
-  height: 500px;
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
 }
-.burg{
+.burger-container{
   border: 1px solid black;
-  width: 50%;
-  height: 500px;
+  width: 100%;
+  height: 600px;
 }
 
 
@@ -162,5 +166,17 @@ img{
 }
 .ingridient-container{
   height: 100%;
+  margin: auto;
+  overflow: auto;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2rem;
 
 }
+button:nth-child(1){
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+

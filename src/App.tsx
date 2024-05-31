@@ -7,7 +7,7 @@ import beaconImage from "./assets/73379969-42d5-4f77-9ac9-340e4668aa4a1698667890
 import Burger from "./components/Burger/Burger.tsx";
 import { Ingredient } from "./types.ts";
 
-const INGREDIENTS: Ingredient[] = [
+    export const INGREDIENTS: Ingredient[] = [
     { name: 'Meat', price: 80, image: meatImage },
     { name: 'Cheese', price: 50, image: cheeseImage },
     { name: 'Salad', price: 10, image: saladImage },
@@ -21,28 +21,49 @@ const App = () => {
         { name: 'Meat', count: 0 },
         { name: 'Bacon', count: 0 },
     ]);
-    const addIngredient = (name:string) => {
+     const addIngredient = (name:string) => {
         setIngredients(prevIngredients =>
             prevIngredients.map(ingredient =>
                 ingredient.name === name ? { ...ingredient, count: ingredient.count + 1 } : ingredient
             )
         );
     }
+    const removeIngredient = (name: string) => {
+        setIngredients(prevIngredients =>
+            prevIngredients.map(ingredient =>
+                ingredient.name === name ? { ...ingredient, count: Math.max(ingredient.count - 1, 0) } : ingredient
+            )
+        );
+    }
     console.log(ingredients)
+
+    const calculatePrice = () => {
+        return ingredients.reduce((total, ing) => {
+            const ingredient = INGREDIENTS.find(item => item.name === ing.name);
+            return total + (ingredient ? ingredient.price * ing.count : 0);
+        }, 30);
+    };
 
     return (
         <>
             <div className={"container"}>
                 <div className={"ingridients"}>
                     {INGREDIENTS.map(ingredient => (
-                        <button key={ingredient.name}
-                                onClick={() => addIngredient(ingredient.name)}>Add {ingredient.name} <img
-                            src={ingredient.image}/></button>
+                        <div key={ingredient.name} className="ingredient-buttons">
+                            <button onClick={() => addIngredient(ingredient.name)}>Add {ingredient.name} <img
+                                src={ingredient.image} alt={ingredient.name}/></button>
+                            <button onClick={() => removeIngredient(ingredient.name)}>Remove {ingredient.name} </button>
+                        </div>
                     ))}
+
+
                 </div>
                 <div className="burger-container">
                     <Burger ingredients={ingredients} allIngredients={ingredients}/>
                 </div>
+            </div>
+            <div className="price">
+                Total Price: {calculatePrice()} сом
             </div>
         </>
     );
